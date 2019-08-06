@@ -21,7 +21,7 @@
     // Include all compiled plugins (below), or include individual files as needed 
     <script src="static/bootstrap/js/bootstrap.min.js"></script> 
 
-    <!-- navbar  -->
+    <!-- navbar  
     <div class="navbar navbar-fixed" role="navigation">
       <div class="container">
         <div class="navbar-header">
@@ -35,7 +35,7 @@
           </button>
         </div>
         <div class="navbar-collapse collapse">
-          <form class="navbar-form navbar-right" role="form"> <!-- XXX FIXME: program login -->
+          <form class="navbar-form navbar-right" role="form"> <!-- XXX FIXME: program login 
             <div class="form-group">
               <input type="text" placeholder="Email" class="form-control">
             </div>
@@ -44,9 +44,10 @@
             </div>
             <button type="submit" class="btn btn-success">Sign in</button>
           </form>
-        </div><!--/.navbar-collapse  -->
+        </div><!--/.navbar-collapse  
       </div>
     </div>
+        -->
     
 
 
@@ -58,7 +59,7 @@
         <p>This database stores each TOR Exit node IP address by date. You can query it via REST/JSON as in https://contacts.cert.at/torexitnodes/ip/&lt;ip address&gt;.</p>
         <p>This database is based on public data on  <a href="https://check.torproject.org">Tor Exit Nodes</a>. A first version of it was created by <a href="mailto:kaplan@lo-res.org"/>kaplan@lo-res.org</a> in his spare time. Version 2 was re-worked to use the <a href="https://check.torproject.org">torproject.org</a> data sets. Version 2 work was also co-funded by the EU CEF framework. </p>
 		<div class="row">	
-		<div class="col-md-4">
+		<div class="col-md-10">
 		<!-- search -->
 		  <form id="form_search" name="form_search" class="form-inline" role="form" action="ip/" method="GET" onsubmit="return submitForm('1234');"> <!-- XXX FIXME: program search. JS? -->
             <div class="form-group">
@@ -68,8 +69,8 @@
             <button type="submit" class="btn btn btn-default" onClick="return submitForm(document.form_search.ip);">Search</button> 
           </form>
 		</div>  <!-- .col-md-4</div> --> 
-        <div class="col-md-4">
-            <img src="static/eu-cef-logo.png" width=400/>
+        <div class="col-md-2">
+            <img src="static/eu-cef-logo.png" width=300/>
         </div>
 		</div>  <!-- div class="row">	 -->
       </div>
