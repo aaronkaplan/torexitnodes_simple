@@ -92,7 +92,7 @@ class IP(restful.Resource):
         cur = g.psql.cursor()
         sql = """
 SELECT ip,
-       to_char(exit_address_ts, 'YYYY-MM-DD'),
+       to_char(exit_address_ts, 'YYYY-MM-DD HH:MM:SS'),
        nodetype.type
 FROM node,nodetype
 WHERE ip=%s AND nodetype.id=node.id_nodetype
@@ -122,7 +122,7 @@ api.add_resource(IP, '/ip/<string:ip>')
 def show_entries():
     cur = g.psql.cursor()
     try:
-        res = cur.execute('select ip,to_char(exit_address_ts, \'YYYY-dd-mm HH:MM\'),nodetype.type from node,nodetype WHERE id_nodetype=nodetype.id order by ip asc limit 1000;')
+        res = cur.execute('select ip,to_char(exit_address_ts, \'YYYY-dd-mm HH:MM:SS\'),nodetype.type from node,nodetype WHERE id_nodetype=nodetype.id order by ip asc limit 1000;')
         if (DEBUG):
             print(cur, file=sys.stderr)
     except psycopg2.Error as e:
