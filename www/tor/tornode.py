@@ -127,7 +127,7 @@ def show_entries():
             print(cur, file=sys.stderr)
     except psycopg2.Error as e:
         print(e.pgerror)
-    entries = [dict(ip=row[0], exit_addr_ts=row[1], node_type=row[2]) for row in cur.fetchall()]
+    entries = [dict(ip=row[0], exit_address_ts=row[1], node_type=row[2]) for row in cur.fetchall()]
     return render_template('show_entries.html', entries=entries)
 
 
