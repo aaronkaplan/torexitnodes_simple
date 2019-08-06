@@ -1,5 +1,5 @@
 # data stuff
-data/*
+data/torproject.org/*
 
 # venv stuff
 www/tor/venv
