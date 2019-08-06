@@ -66,3 +66,10 @@ $ crontab -l
 ```
 
 
+Deploying the web interface properly
+------------------------------------
+
+The built-in webserver of flask is a no-no for production environments.
+Hence, please follow the great [documentation](https://flask.palletsprojects.com) on production setups. 
+The instructions vary depending on which web server you use.
+
