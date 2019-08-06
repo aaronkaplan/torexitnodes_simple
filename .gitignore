@@ -2,6 +2,7 @@
 data/torproject.org/*
 
 # venv stuff
+venv/*
 www/tor/venv
 
 # Byte-compiled / optimized / DLL files
