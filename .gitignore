@@ -1,6 +1,9 @@
 # data stuff
 data/torproject.org/*
 
+# generated data
+www/tor/static/latest.bz2
+
 # venv stuff
 venv/*
 www/tor/venv

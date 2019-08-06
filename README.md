@@ -38,16 +38,31 @@ Initial setup
   $ psql template1 < db.sql
 
 
+Testing if it works
+-------------------
 
+1. Activate any virtualenv or conda environment in case you use that to install the prerequisites.
+2. Test if fetching the data works:
 
-How to get this to run?
-------------------------
+```bash
+$ ./fetch-tor-list.sh 
+psql tordb_simple
+select count(*) from node
+```
+
+you should see a non-zero result.
+
+If it works, you can continue to run this automatically...
+
+How to get this to run automatically?
+------------------------------------
 
 ```bash
 $ crontab -l
 (...)
+# fetch the list once a day at 1:05 A.M.
 # m h  dom mon dow   command
-*/5 *  *   *   *     ( cd /home/aaron/torexitnodes_simple; ./fetch-tor-list.sh  >/dev/null 2>&1 ) 
+5 01   *   *   *     ( cd /home/aaron/torexitnodes_simple; ./fetch-tor-list.sh  >/dev/null 2>&1 ) 
 ```
 
 
