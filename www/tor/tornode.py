@@ -129,6 +129,8 @@ def show_entries():
     except psycopg2.Error as e:
         print(e.pgerror)
     entries = [dict(ip=row[0], exit_address_ts=row[1], node_type=row[2]) for row in cur.fetchall()]
+    if (DEBUG):
+        print(entries)
     return render_template('show_entries.html', entries=entries)
 
 
