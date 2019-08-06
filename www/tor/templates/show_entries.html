@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+{% block body %}
+  <!-- {% if session.logged_in -%}
+    <form action="{{ url_for('add_entry') }}" method=post class=add-entry>
+      <dl>
+        <dt>IP:
+        <dd><input type=text size=30 name=ip>
+        <dt>first_seen:
+        <dd><input type=text name=first_seen />
+        <dd><input type=text name=last_seen />
+        <dd><input type=submit value=OK>
+      </dl>
+    </form>
+  {% endif -%}
+  -->
+  <div class="row">
+  <div class="table-responsive">
+    <table class="table table-hover">
+      <tr>
+        <th>IP address</th><th>Info</th><th>First seen</th><th>Last seen</th><th>Node type</th><th>Seen at</th>
+      </tr>
+  {% for entry in entries -%}
+      <tr columns=3>
+        <td width="20%">{{ entry.ip }}</td><td><a href="http://torstatus.blutmagie.de/cgi-bin/whois.pl?ip={{entry.ip}}">whois</a> | 
+			<a href="http://pdns.cert.at/p/dns?qry={{entry.ip}}">pDNS</a> | 
+			<a href="https://www.robtex.com/ip/{{entry.ip}}.html#blacklists">blacklists</a></td><td>{{ entry.first_seen }}</td><td>{{ entry.last_seen }}</td>
+			<td>{{ entry.node_type }}</td><td><a href="{{entry.seen_at_url }}">{{entry.seen_at}}</a></td>
+      </tr>
+  {% else -%}
+      <tr><td>Unbelievable.  No entries here so far</td></tr>
+  {% endfor -%}
+    </table>
+  </div>
+  </div>
+{% endblock -%}

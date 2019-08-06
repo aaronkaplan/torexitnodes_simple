@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>TorDB</title>
+	<!-- <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}"> -->
+    <!-- Bootstrap -->
+    <link href="static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+<body>
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) 
+    <script src="https://code.jquery.com/jquery.js"></script>
+    // Include all compiled plugins (below), or include individual files as needed 
+    <script src="static/bootstrap/js/bootstrap.min.js"></script> -->
+
+	<!-- navbar -->
+    <div class="navbar navbar-fixed" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+		<!--	<div class=row>
+			  <a class="navbar-brand" href="#">Tor Exit Node DB</a>
+	        </div> 
+		-->
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        </div>
+        <div class="navbar-collapse collapse">
+          <form class="navbar-form navbar-right" role="form"> <!-- XXX FIXME: program login -->
+            <div class="form-group">
+              <!-- <input type="text" placeholder="Email" class="form-control"> -->&nbsp;
+            </div>
+            <div class="form-group">
+              <!-- <input type="password" placeholder="Password" class="form-control"> --> &nbsp;
+            </div>
+            <!-- <button type="submit" class="btn btn-success">Sign in</button> --> &nbsp;
+          </form>
+        </div><!--/.navbar-collapse -->
+      </div>
+    </div>
+
+
+
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+    <div class="jumbotron">
+      <div class="container">
+        <p><h2 style="vertical-align:middle"><img src="static/tor-logo.png" width="110" style="vertical-align:middle"/>&nbsp; Exit Node DB</h2>
+        <p>This database stores each TOR Exit node IP address by first seen and last seen. You can query it via REST/JSON as in https://internet2.us/ip/&lt;ip address&gt;.</p>
+		<p>This database is based on public data on Tor Exit Nodes. It was created by <a href="mailto:kaplan@lo-res.org"/>kaplan@lo-res.org</a> in his spare time</p>
+		<div class="row">	
+		<div class="col-md-8">
+		<!-- search -->
+		  <form id="form_search" name="form_search" class="form-inline" role="form" action="ip/" method="GET" onsubmit="return submitForm('1234');"> <!-- XXX FIXME: program search. JS? -->
+            <div class="form-group">
+			  <label class="sr-only" for="IP">IP address</label>
+              <input name="ip" type="text" id="IP" placeholder="1.2.3.4" class="form-control" width="80%" >
+			</div>
+            <button type="submit" class="btn btn btn-default" >Search</button> <!-- onClick="return submitForm(document.form_search.ip);">Search</button> -->
+          </form>
+		</div>  <!-- .col-md-8</div> --> 
+		</div>  <!-- div class="row">	 -->
+      </div>
+    </div>
+
+
+<!-- main site -->
+	<!-- <div class=page> -->
+
+	<div class=container>
+
+	  <div class="row">
+		<!-- XXX FIXME: program pager (next prev ) -->
+		<div class="col-md-12">
+		  {% for message in get_flashed_messages() %}
+			<div class=flash>{{ message }}</div>
+		  {% endfor %}
+		  {% block body %}{% endblock %}
+	    </div> <!-- col-md-12 -->
+	</div> <!-- class = row -->
+	<hr />
+   <footer>
+        <p>&copy; L. Aaron Kaplan 2014</p>
+  </footer>
+
+</div> <!-- container -->
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="static/bootstrap/js/bootstrap.min.js"></script>
+
+	<!-- for changing the search submission -->
+	<script type="text/javascript">
+	function submitForm(_ip){
+		var form_url ; // = document.getElementById('form_search').action;
+		var ip;
+		form_url = $("#form_search").attr("action");
+		//alert("Before - action=" + form_url);	
+		ip = $("#IP").val();
+		//changing the action to google.com
+		$("#form_search").attr("action", "ip/" + ip);
+		//alert("After - action = " + $("#form_search").attr("action"));
+		return true;
+	}
+	</script>
+
+
+
+</body>
