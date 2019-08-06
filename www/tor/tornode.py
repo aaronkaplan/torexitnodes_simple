@@ -28,7 +28,7 @@ import flask_restful as restful
 import config as cfg
 
 """ config.py file example:
-DATABASE='tordb'
+DATABASE='tordb_simple'
 DBUSER='aaron'
 SECRET_KEY='XXXXXX CHANGE HERE - LONG RANDOM STRING XXXXX'
 USERNAME='admin'
@@ -122,7 +122,7 @@ api.add_resource(IP, '/ip/<string:ip>')
 def show_entries():
     cur = g.psql.cursor()
     try:
-        res = cur.execute('select ip,exit_address_ts,nodetype.type from node,nodetype WHERE id_nodetype=nodetype.id order by ip asc limit 1000;')
+        res = cur.execute('select ip,to_char(exit_address_ts, 'YYYY-dd-mm'),nodetype.type from node,nodetype WHERE id_nodetype=nodetype.id order by ip asc limit 1000;')
         if (DEBUG):
             print(cur, file=sys.stderr)
             print(res, file=sys.stderr)
