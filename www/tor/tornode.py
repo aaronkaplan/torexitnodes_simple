@@ -125,6 +125,7 @@ def show_entries():
         res = cur.execute('select ip,exit_address_ts,nodetype.type from node,nodetype WHERE id_nodetype=nodetype.id order by ip asc limit 1000;')
         if (DEBUG):
             print(cur, file=sys.stderr)
+            print(res, file=sys.stderr)
     except psycopg2.Error as e:
         print(e.pgerror)
     entries = [dict(ip=row[0], exit_address_ts=row[1], node_type=row[2]) for row in cur.fetchall()]
