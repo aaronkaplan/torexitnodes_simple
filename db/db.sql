@@ -55,7 +55,9 @@ ALTER TABLE public.node OWNER TO aaron;
 
 
 create index idx_node_ip on node(ip);
-create index idx_exit_address_ts on node(exit_address_ts);
+create index idx_node_exit_address_ts on node(exit_address_ts);
+create index idx_node_first_published on node(first_published);
+create index idx_node_exit_last_status on node(last_status);
 
 create sequence seq_nodetype_id;
 
