@@ -122,7 +122,7 @@ api.add_resource(IP, '/ip/<string:ip>')
 def show_entries():
     cur = g.psql.cursor()
     try:
-        res = cur.execute('select ip,exit_address_ts,nodetype.type from node,nodetype,source WHERE id_nodetype=nodetype.id order by ip asc limit 1000;')
+        res = cur.execute('select ip,exit_address_ts,nodetype.type from node,nodetype WHERE id_nodetype=nodetype.id order by ip asc limit 1000;')
         if (DEBUG):
             print(cur, file=sys.stderr)
     except psycopg2.Error as e:
