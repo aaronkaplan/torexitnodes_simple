@@ -25,8 +25,6 @@
     <div class="navbar navbar-fixed" role="navigation">
       <div class="container">
         <div class="navbar-header">
-            <p><img src="static/eu-cef-logo.png" width=400/></p>
-                
 			<a class="navbar-brand" href="#">Tor Exit Node DB</a>
 	     </div> 
          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -60,16 +58,19 @@
         <p>This database stores each TOR Exit node IP address by date. You can query it via REST/JSON as in https://contacts.cert.at/torexitnodes/ip/&lt;ip address&gt;.</p>
         <p>This database is based on public data on  <a href="https://check.torproject.org">Tor Exit Nodes</a>. A first version of it was created by <a href="mailto:kaplan@lo-res.org"/>kaplan@lo-res.org</a> in his spare time. Version 2 was re-worked to use the <a href="https://check.torproject.org">torproject.org</a> data sets. Version 2 work was also co-funded by the EU CEF framework. </p>
 		<div class="row">	
-		<div class="col-md-8">
+		<div class="col-md-4">
 		<!-- search -->
 		  <form id="form_search" name="form_search" class="form-inline" role="form" action="ip/" method="GET" onsubmit="return submitForm('1234');"> <!-- XXX FIXME: program search. JS? -->
             <div class="form-group">
 			  <label class="sr-only" for="IP">IP address</label>
               <input name="ip" type="text" id="IP" placeholder="1.2.3.4" class="form-control" width="80%" >
 			</div>
-            <button type="submit" class="btn btn btn-default" >Search</button> <!-- onClick="return submitForm(document.form_search.ip);">Search</button> -->
+            <button type="submit" class="btn btn btn-default" onClick="return submitForm(document.form_search.ip);">Search</button> 
           </form>
-		</div>  <!-- .col-md-8</div> --> 
+		</div>  <!-- .col-md-4</div> --> 
+        <div class="col-md-4">
+            <img src="static/eu-cef-logo.png" width=400/>
+        </div>
 		</div>  <!-- div class="row">	 -->
       </div>
     </div>
