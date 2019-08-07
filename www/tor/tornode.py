@@ -28,7 +28,7 @@ import flask_restful as restful
 import config as cfg
 
 # config.py file example:
-""" 
+"""
 DATABASE='tordb_simple'
 DBUSER='aaron'
 SECRET_KEY='XXXXXX CHANGE HERE - LONG RANDOM STRING XXXXX'
@@ -125,14 +125,26 @@ api.add_resource(IP, '/ip/<string:ip>')
 
 @app.route('/')
 def show_entries():
+    SQLSTMT="""
+    SELECT distinct(ip),
+        to_char(min(exit_address_ts), 'YYYY-dd-mm HH:MM:SS') as first_seen,
+        to_char(max(exit_address_ts), 'YYYY-dd-mm HH:MM:SS') as last_seen,
+        count(*) as count_seen,
+        nodetype.type as type
+    FROM node,nodetype
+    WHERE id_nodetype=nodetype.id
+    GROUP BY ip,type
+    ORDER BY ip
+    LIMIT 10000
+    """
     cur = g.psql.cursor()
     try:
-        res = cur.execute('select ip,to_char(exit_address_ts, \'YYYY-dd-mm HH:MM:SS\'),nodetype.type from node,nodetype WHERE id_nodetype=nodetype.id order by ip asc limit 10000;')
+        res = cur.execute(SQLSTMT)
         if (DEBUG):
             app.logger.debug(cur)
     except psycopg2.Error as e:
         app.logger.error(e.pgerror)
-    entries = [dict(ip=row[0], exit_address_ts=row[1], node_type=row[2]) for row in cur.fetchall()]
+    entries = [dict(ip=row[0], first_seen=row[1], last_seen=row[2], count_seen=row[3], node_type=row[4]) for row in cur.fetchall()]
     return render_template('show_entries.html', entries=entries)
 
 

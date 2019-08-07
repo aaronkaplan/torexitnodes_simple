@@ -25,7 +25,9 @@
         <td><a href="http://torstatus.blutmagie.de/cgi-bin/whois.pl?ip={{entry.ip}}">whois</a> | 
 			<a href="http://pdns.cert.at/p/dns?qry={{entry.ip}}">pDNS</a> | 
 			<a href="https://www.robtex.com/ip/{{entry.ip}}.html#blacklists">blacklists</a></td>
-        <td>{{ entry.exit_address_ts }}</td>
+        <td>{{ entry.first_seen }}</td>
+        <td>{{ entry.last_seen }}</td>
+        <td>{{ entry.count_seen }}</td>
 		<td>{{ entry.node_type }}</td>
       </tr>
   {% else -%}
