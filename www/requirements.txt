@@ -10,6 +10,6 @@ decorator==3.3.3
 distribute==0.6.24dev-r0
 pexpect==2.4
 psycopg2==2.4.5
-pyOpenSSL==0.13
+pyOpenSSL==17.5.0
 simplegeneric==0.8.1
 wsgiref==0.1.2
