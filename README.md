@@ -24,7 +24,7 @@ python
 flask
 webserver such as nginx
 
-See the requirements.txt file in www/
+See the requirements.txt file in www/tor
 
 
 Initial setup
