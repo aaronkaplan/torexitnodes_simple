@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 """
@@ -16,11 +16,11 @@
 
 from __future__ import print_function
 
+import ipaddress
 import psycopg2
 import psycopg2.extras
 import json
 import sys
-import os
 from flask import Flask, request, session, g, redirect, url_for, abort, render_template, flash
 import flask_restful as restful
 # from flask.ext.psycopg2 import Psycopg2
@@ -49,9 +49,7 @@ PASSWORD=cfg.PASSWORD
 # create our little application :)
 app = Flask(__name__)
 app.config.from_object(__name__)
-# g.db = SQLAlchemy(app)
 api = restful.Api(app)
-# psql = Psycopg2(app)
 
 
 def connect_db():
@@ -60,6 +58,7 @@ def connect_db():
         g.psql=psycopg2.connect(DATABASE)
     except psycopg2.Error as e:
         print(e.pgError)
+        app.logger.error(e.pgError)
         return None
     return g.psql
 
@@ -85,9 +84,17 @@ def teardown_request(exception):
 #
 class IP(restful.Resource):
     def get(self, ip):
+        # argument parsing & sanity checking
+        try:
+            app.logger.info("trying to parse IP address: %s" %(ip))
+            _valid_ip = ipaddress.ip_address(ip)
+        except Exception as ex:
+            app.logger.error("received invalid ip as parameter: %s" %(str(ex)))
+            return {"error": "invalid IP parameter given. Must be a valid IPv4 or IPv6 address."}
+
         # check if we get limit params
-        seen_first = request.args.get('seen_first', '')
-        seen_last  = request.args.get('seen_last', '')
+        # seen_first = request.args.get('seen_first', '')
+        # seen_last  = request.args.get('seen_last', '')
 
         cur = g.psql.cursor()
         sql = """
@@ -103,15 +110,12 @@ WHERE ip=%s AND nodetype.id=node.id_nodetype
         e = []
         for row in rows:
             if DEBUG:
-                print(row, file=sys.stderr)
-                print(row[2], file=sys.stderr)
-                print(type(row[2]), file=sys.stderr)
+                app.logger.debug(row, file=sys.stderr)
+                app.logger.debug(row[2], file=sys.stderr)
+                app.logger.debug(type(row[2]), file=sys.stderr)
             e.append(dict(ip=row[0], exit_address_ts=row[1], node_type=row[2]))
-        print("e=%s" % repr(e), file=sys.stderr)
-        print(type(e), file=sys.stderr)
-        # e = entries
-        # e = json.dumps(e )
-        # print(repr(e))
+        app.logger.debug("e=%s" % repr(e), file=sys.stderr)
+        app.logger.debug(type(e), file=sys.stderr)
         return e        # render_template('show_entries.html', entries=entries)
 
 
@@ -124,9 +128,9 @@ def show_entries():
     try:
         res = cur.execute('select ip,to_char(exit_address_ts, \'YYYY-dd-mm HH:MM:SS\'),nodetype.type from node,nodetype WHERE id_nodetype=nodetype.id order by ip asc limit 1000;')
         if (DEBUG):
-            print(cur, file=sys.stderr)
+            app.logger.debug(cur, file=sys.stderr)
     except psycopg2.Error as e:
-        print(e.pgerror)
+        app.logger.error(e.pgerror)
     entries = [dict(ip=row[0], exit_address_ts=row[1], node_type=row[2]) for row in cur.fetchall()]
     return render_template('show_entries.html', entries=entries)
 
