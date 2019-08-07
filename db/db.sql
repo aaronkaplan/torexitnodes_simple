@@ -59,6 +59,8 @@ create index idx_node_exit_address_ts on node(exit_address_ts);
 create index idx_node_first_published on node(first_published);
 create index idx_node_exit_last_status on node(last_status);
 
+create unique index idx_node_combined on node (node_id, ip, exit_address_ts, id_nodetype);
+
 create sequence seq_nodetype_id;
 
 --
