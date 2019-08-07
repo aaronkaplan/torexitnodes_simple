@@ -27,6 +27,7 @@ import flask_restful as restful
 
 import config as cfg
 
+# config.py file example:
 """ 
 DATABASE='tordb_simple'
 DBUSER='aaron'
