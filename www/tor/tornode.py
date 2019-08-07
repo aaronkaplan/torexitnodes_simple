@@ -110,12 +110,12 @@ WHERE ip=%s AND nodetype.id=node.id_nodetype
         e = []
         for row in rows:
             if DEBUG:
-                app.logger.debug(row, file=sys.stderr)
-                app.logger.debug(row[2], file=sys.stderr)
-                app.logger.debug(type(row[2]), file=sys.stderr)
+                app.logger.debug(row)
+                app.logger.debug(row[2])
+                app.logger.debug(type(row[2]))
             e.append(dict(ip=row[0], exit_address_ts=row[1], node_type=row[2]))
-        app.logger.debug("e=%s" % repr(e), file=sys.stderr)
-        app.logger.debug(type(e), file=sys.stderr)
+        app.logger.debug("e=%s" % repr(e))
+        app.logger.debug(type(e))
         return e        # render_template('show_entries.html', entries=entries)
 
 
@@ -128,7 +128,7 @@ def show_entries():
     try:
         res = cur.execute('select ip,to_char(exit_address_ts, \'YYYY-dd-mm HH:MM:SS\'),nodetype.type from node,nodetype WHERE id_nodetype=nodetype.id order by ip asc limit 10000;')
         if (DEBUG):
-            app.logger.debug(cur, file=sys.stderr)
+            app.logger.debug(cur)
     except psycopg2.Error as e:
         app.logger.error(e.pgerror)
     entries = [dict(ip=row[0], exit_address_ts=row[1], node_type=row[2]) for row in cur.fetchall()]
