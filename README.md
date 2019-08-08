@@ -18,11 +18,11 @@ Directory Contents
 Prerequisites
 --------------
 
-wget
-postgresql 9.3 or higher
-python
-flask
-webserver such as nginx
+* wget
+* postgresql 9.3 or higher
+* python
+* flask
+* webserver such as nginx
 
 See the requirements.txt file in www/tor
 
@@ -30,13 +30,13 @@ See the requirements.txt file in www/tor
 Initial setup
 --------------
 
- 
-  $ cd db
-  $ sudo su 
-  # su - postgresql
-  $ createuser -s userename
-  $ psql template1 < db.sql
-
+```bash
+$ cd db
+$ sudo su
+# su - postgresql
+$ createuser -s userename
+$ psql template1 < db.sql
+```
 
 Testing if it works
 -------------------
@@ -53,6 +53,13 @@ select count(*) from node
 you should see a non-zero result.
 
 If it works, you can continue to run this automatically...
+
+The execution of `fetch-tor-list.sh` is expected to output a lot of error messages like this:
+```
+ERROR:  duplicate key value violates unique constraint "idx_node_combined"
+DETAIL:  Key (node_id, ip, exit_address_ts, id_nodetype)=(0011BD2485AD45D984EC4159C88FC066E5E3300E, 162.247.74.201, 2019-08-08 09:12:18+02, 1) already exists.
+```
+They can/should be ignored.
 
 How to get this to run automatically?
 ------------------------------------

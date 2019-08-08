@@ -1,6 +1,6 @@
 #!/bin/bash
 
-path=$(pwd)
+path=$(dirname $BASH_SOURCE)
 
 #### Source 
 TARGETDIR="$path/data/torproject.org"
@@ -23,7 +23,7 @@ wget --quiet -4 -O - -o $LOGFILE --no-check-certificate $URL \
      | bzip2 \
      > "$TARGETDIR/$DATESTAMP.bz2"
 
-python insert-data.py --torproject-format $TARGETDIR/$DATESTAMP.bz2 
+python3 $path/insert-data.py --torproject-format $TARGETDIR/$DATESTAMP.bz2
 
 
 
