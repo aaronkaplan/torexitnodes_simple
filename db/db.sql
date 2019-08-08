@@ -32,10 +32,11 @@ SET default_with_oids = false;
 
 
 create database tordb_simple;
+create user tordb;
 \c tordb_simple
 
 --
--- Name: nodes; Type: TABLE; Schema: public; Owner: aaron; Tablespace: 
+-- Name: nodes; Type: TABLE; Schema: public; Owner: tordb; Tablespace: 
 --
 
 -- all data comes from https://check.torproject.org/exit-addresses
@@ -51,7 +52,7 @@ CREATE TABLE node (
 );
 
 
-ALTER TABLE public.node OWNER TO aaron;
+ALTER TABLE public.node OWNER TO tordb;
 
 
 create index idx_node_ip on node(ip);
@@ -64,7 +65,7 @@ create unique index idx_node_combined on node (node_id, ip, exit_address_ts, id_
 create sequence seq_nodetype_id;
 
 --
--- Name: nodetype; Type: TABLE; Schema: public; Owner: aaron; Tablespace: 
+-- Name: nodetype; Type: TABLE; Schema: public; Owner: tordb; Tablespace: 
 --
 
 CREATE TABLE nodetype (
@@ -73,11 +74,11 @@ CREATE TABLE nodetype (
 );
 
 
-ALTER TABLE public.nodetype OWNER TO aaron;
+ALTER TABLE public.nodetype OWNER TO tordb;
 
 
 --
--- Data for Name: nodetype; Type: TABLE DATA; Schema: public; Owner: aaron
+-- Data for Name: nodetype; Type: TABLE DATA; Schema: public; Owner: tordb
 --
 
 COPY nodetype (id, type) FROM stdin;
@@ -89,7 +90,7 @@ COPY nodetype (id, type) FROM stdin;
 
 
 --
--- Name: nodetype_pkey; Type: CONSTRAINT; Schema: public; Owner: aaron; Tablespace: 
+-- Name: nodetype_pkey; Type: CONSTRAINT; Schema: public; Owner: tordb; Tablespace: 
 --
 
 ALTER TABLE ONLY nodetype
@@ -97,7 +98,7 @@ ALTER TABLE ONLY nodetype
 
 
 --
--- Name: node_id_nodetype_fkey; Type: FK CONSTRAINT; Schema: public; Owner: aaron
+-- Name: node_id_nodetype_fkey; Type: FK CONSTRAINT; Schema: public; Owner: tordb
 --
 
 ALTER TABLE ONLY node
@@ -110,7 +111,7 @@ ALTER TABLE ONLY node
 
 REVOKE ALL ON SCHEMA public FROM PUBLIC;
 REVOKE ALL ON SCHEMA public FROM postgres;
-GRANT ALL ON SCHEMA public TO postgres;
+GRANT ALL ON SCHEMA public TO tordb;
 GRANT ALL ON SCHEMA public TO PUBLIC;
 
 

@@ -19,8 +19,6 @@ from __future__ import print_function
 import ipaddress
 import psycopg2
 import psycopg2.extras
-import json
-import sys
 from flask import Flask, request, session, g, redirect, url_for, abort, render_template, flash
 import flask_restful as restful
 # from flask.ext.psycopg2 import Psycopg2
@@ -30,7 +28,7 @@ import config as cfg
 # config.py file example:
 """
 DATABASE='tordb_simple'
-DBUSER='aaron'
+DBUSER='tordb'
 SECRET_KEY='XXXXXX CHANGE HERE - LONG RANDOM STRING XXXXX'
 USERNAME='admin'
 PASSWORD='XXXXXX CHANGE HERE XXXXX'

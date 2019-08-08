@@ -34,7 +34,7 @@ if (debug):
     print("timezone=%s" %timezone)
 
 try:
-    conn = psycopg2.connect("dbname='tordb_simple' user='aaron'")
+    conn = psycopg2.connect("dbname='tordb_simple' user='tordb'")
     conn.autocommit = False
 except Exception as ex:
     print("I am unable to connect to the database. Error: %s" %str(ex))

@@ -44,9 +44,12 @@ Testing if it works
 1. Activate any virtualenv or conda environment in case you use that to install the prerequisites.
 2. Test if fetching the data works:
 
+First, make sure that the newly created user ``tordb`` may access the tables and the DB and add it to the postgresql pg_hba.conf file.
+
+
 ```bash
 $ ./fetch-tor-list.sh 
-psql tordb_simple
+psql -U tordb tordb_simple
 select count(*) from node
 ```
 
@@ -62,8 +65,10 @@ $ crontab -l
 (...)
 # fetch the list once a day at 1:05 A.M.
 # m h  dom mon dow   command
-5 01   *   *   *     ( cd /home/aaron/torexitnodes_simple; ./fetch-tor-list.sh  >/dev/null 2>&1 ) 
+5 01   *   *   *     ( cd /home/your_user/torexitnodes_simple; source venv/bin/activate ; ./fetch-tor-list.sh  >/dev/null 2>&1 ) 
 ```
+
+(Note that this assumes you installed the prerequisites via virtual-env).
 
 
 Deploying the web interface properly
